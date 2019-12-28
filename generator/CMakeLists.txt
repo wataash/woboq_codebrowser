@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 project(codebrowser_generator)
 
-Find_Package(LLVM REQUIRED CONFIG)
+Find_Package(LLVM 8 REQUIRED CONFIG)
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION} in ${LLVM_INSTALL_PREFIX}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 Find_Package(Clang REQUIRED CONFIG HINTS "${LLVM_INSTALL_PREFIX}/lib/cmake/clang")
@@ -66,6 +66,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions -fno-rtti")
 # Embed the clang header into the binary:
 string(REPLACE "svn" "" LLVM_VERSION "${LLVM_VERSION}")
 string(REGEX REPLACE "git.*$" "" LLVM_VERSION "${LLVM_VERSION}")
+#set(CLANG_BUILTIN_HEADERS_DIR "/usr/lib/llvm-8/lib/clang/8.0.0/include")
 if(NOT CLANG_BUILTIN_HEADERS_DIR)
     set(CLANG_BUILTIN_HEADERS_DIR "${LLVM_LIBRARY_DIR}/clang/${LLVM_VERSION}/include")
 endif()
